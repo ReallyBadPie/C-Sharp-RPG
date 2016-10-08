@@ -10,6 +10,7 @@ namespace RPG
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("MEMEs");
         }
     }
 }
