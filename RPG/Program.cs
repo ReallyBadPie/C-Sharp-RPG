@@ -15,11 +15,15 @@ namespace RPG
             player = new Player();
         }
 
-        static void GenGiant()
+        static void GenMonster()
         {
             Random rnd = new Random();
-            int pwrLvl = rnd.Next(1, 6);
-            Monster giant = new RPG.Monster("Giant", player.getLevel()+pwrLvl, giant.getLevel );
+            int powerLevel = rnd.Next(1, 6);
+
+            int monsterLevel = player.getLevel() + powerLevel;
+            int monsterHealth = 100;
+
+            Monster giant = new Monster("Giant", player.getLevel()+powerLevel, giant.getLevel );
         }
     
     }
