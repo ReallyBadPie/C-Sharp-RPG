@@ -5,6 +5,7 @@
         protected int price;
         protected string name;
 
+
         // TODO: add more attributes for the item to modify from character
 
         /**
@@ -103,4 +104,5 @@
             }
         }
     }
+
 }
