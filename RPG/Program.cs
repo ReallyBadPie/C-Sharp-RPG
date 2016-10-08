@@ -10,37 +10,70 @@ namespace RPG
     {
         private static Player player;
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             player = new Player();
         }
 
-        static void GenMonster()
+        public static Monster generateMonster()
         {
             Random rnd = new Random();
-   
-            int powerLevel = rnd.Next(1, 6);
-            int monsterChoice = rnd.Next(1, 5);
-            int monsterLevel = player.getLevel() + powerLevel;
-            int monsterHealth = monsterLevel * powerLevel;
-            int monsterMoney = 10;
-            int monsterExperience = 10;
+            int levelMultiplier = rnd.Next(1, 6);
 
+            string baseName = "";
+            int baseLevel = player.getLevel() + levelMultiplier;
+            int baseHealth = baseLevel * levelMultiplier;
+            int baseMoneyDrop = 10;
+            int baseExpDrop = 10;
+            int baseStr = baseLevel;
+            int baseDef = baseLevel;
+
+            int monsterChoice = rnd.Next(1, 5);
             switch (monsterChoice)
             {
                 case 1:
-                    Monster giant = new Monster("Giant", monsterLevel, 120 + monsterHealth, 120 + monsterHealth, monsterLevel * 2, monsterLevel / 2, monsterMoney * 3, monsterExperience * 3);
+                    baseName = "Giant";
+                    baseHealth += 120;
+                    baseStr = baseLevel * 2;
+                    baseDef = baseLevel / 2;
+                    baseMoneyDrop *= 3;
+                    baseExpDrop *= 3;
                     break;
                 case 2:
-                    Monster wizard = new Monster("Wizard", monsterLevel, 80 + monsterHealth, 80 + monsterHealth, monsterLevel * 3, monsterLevel / 3, monsterMoney * 2, monsterExperience * 4);
+                    baseName = "Wizard";
+                    baseHealth += 80;
+                    baseStr = baseLevel * 3;
+                    baseDef = baseLevel / 3;
+                    baseMoneyDrop *= 2;
+                    baseExpDrop *= 4;
                     break;
                 case 3:
-                    Monster bandit = new Monster("Bandit", monsterLevel, 100 + monsterHealth, 100 + monsterHealth, monsterLevel , monsterLevel, monsterMoney * 2, monsterExperience * 2);
+                    baseName = "Bandit";
+                    baseHealth += 100;
+                    baseMoneyDrop *= 2;
+                    baseExpDrop *= 2;
                     break;
                 case 4:
-                    Monster cactus = new Monster("Cactus", monsterLevel, 420 + monsterHealth, 420 + monsterHealth, 3, monsterLevel *5, monsterMoney, monsterExperience * 6);
+                    baseName = "Cactus";
+                    baseHealth += 420;
+                    baseStr = 3;
+                    baseDef = baseLevel * 5;
+                    baseExpDrop *= 6;
                     break;
+            }
+
+            Monster monster = new Monster(
+                baseName,
+                baseLevel,
+                baseHealth,
+                baseHealth,
+                baseStr,
+                baseDef,
+                baseMoneyDrop,
+                baseExpDrop
+            );
+
+            return monster;
         }
-    
     }
 }
