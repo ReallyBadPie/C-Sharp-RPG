@@ -11,12 +11,19 @@ namespace RPG
         static void Main(string[] args)
         {
             bool gameRunning = true;
+
+            // Main game loop
             while(gameRunning)
             {
                 gameRunning = selectMenuOptions();
             }
         }
 
+        /**
+         * FUNCTION selectMenuOptions
+         * IMPORT None EXPORT None
+         * Shows the main menu options to the user
+         */
         private static bool selectMenuOptions()
         {
             // Default -1 for error check
@@ -59,15 +66,23 @@ namespace RPG
             return success;
         }
 
+        /**
+         * FUNCTION showMenu
+         * IMPORT None EXPORT None
+         * Shows the menu options to the user
+         */
         private static void showMenu()
         {
-            Console.WriteLine("Select Option: \n");
+            Console.WriteLine("===== [ MAIN MENU ] =====");
+
+            // All available current options
             Console.WriteLine("[1] Show Player Stats");
             Console.WriteLine("[2] Fight");
             Console.WriteLine("[3] Quest");
             Console.WriteLine("[4] Exit");
+
             Console.WriteLine("");
-            Console.WriteLine("Option: ");
+            Console.Write("Enter option: ");
         }
         
     }
