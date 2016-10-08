@@ -2,8 +2,9 @@
 {
     class Item
     {
-        private int price;
-        private string name;
+        protected int price;
+        protected string name;
+
 
         // TODO: add more attributes for the item to modify from character
 
@@ -50,4 +51,58 @@
             set { name = value; }
         }
     }
+
+    class Weapon : Item
+    {
+        private int strengthBonus;
+        private int defenceBonus;
+        private int healthBonus;
+
+        private string type;
+
+        public Weapon(int strengthBonus, int defenceBonus, int healthBonus)
+        {
+            this.StrengthBonus = strengthBonus;
+            this.DefenceBonus = DefenceBonus;
+            this.HealthBonus = healthBonus;
+        }
+
+        // Property for managing strengthBonus
+        public int StrengthBonus
+        {
+            get { return strengthBonus; }
+
+            set
+            {
+                // Ensure within valid range
+                if (value < 0) value = 0;
+                strengthBonus = value;
+            }
+        }
+
+        // Property for managing defenceBonus
+        public int DefenceBonus
+        {
+            get { return defenceBonus; }
+
+            set
+            {
+                if (value < 0) value = 0;
+                defenceBonus = value;
+            }
+        }
+
+        // Property for managing healthBonus
+        public int HealthBonus
+        {
+            get { return healthBonus; }
+
+            set
+            {
+                if (value < 0) value = 0;
+                healthBonus = value;
+            }
+        }
+    }
+
 }
