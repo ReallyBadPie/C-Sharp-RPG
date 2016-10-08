@@ -8,11 +8,19 @@ namespace RPG
 {
     class Program
     {
+        private static Player player;
+
         static void Main(string[] args)
         {
-            Console.WriteLine("MEMEs");
-            Console.WriteLine("MEMEs");
-            
+            player = new Player();
         }
+
+        static void GenGiant()
+        {
+            Random rnd = new Random();
+            int pwrLvl = rnd.Next(1, 6);
+            Monster giant = new RPG.Monster("Giant", player.getLevel()+pwrLvl, giant.getLevel );
+        }
+    
     }
 }

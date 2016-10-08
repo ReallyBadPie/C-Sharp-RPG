@@ -121,8 +121,9 @@ namespace RPG
             this.money = 0;
         }
 
-        public Player(string name, int level, int health, int maxHealth,int strength, int defence, int experience, int maxExp, int money)
+        public Player(string name, int level, int health, int maxHealth, int strength, int defence, int experience, int maxExp, int money) : base(name, level, health, maxHealth, strength, defence)
         {
+
             this.experience = experience;
             this.maxExp = maxExp;
             this.money = money;
@@ -148,6 +149,46 @@ namespace RPG
         public void setMoney(int money)
         {
             this.money = money;
+        }
+    }
+
+    public class Monster : Character
+    {
+        private int moneyDrop;
+        private int experienceDrop;
+
+        public Monster() : base()
+        {
+            this.moneyDrop = 10;
+            this.experienceDrop = 10;
+        }
+
+        public Monster(string name, int level, int health, int maxHealth, int strength, int defence, int moneyDrop, int experienceDrop) : base(name, level, health,maxHealth, strength, defence)
+        {
+            this.moneyDrop = moneyDrop;
+            this.experienceDrop = experienceDrop;
+        }
+
+        //Getters
+        public int getMoneyDrop()
+        {
+            return this.moneyDrop;
+        }
+
+        public int getExperienceDrop()
+        {
+            return this.experienceDrop;
+        }
+
+        //Setters
+        public void setMoneyDrop(int moneyDrop)
+        {
+            this.moneyDrop = moneyDrop;
+        }
+
+        public void setExperienceDrop(int experienceDrop)
+        {
+            this.experienceDrop = experienceDrop;
         }
     }
 }
