@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RPG
+﻿namespace RPG
 {
     class Item
     {
@@ -55,6 +49,5 @@ namespace RPG
             get { return name; }
             set { name = value; }
         }
-
     }
 }
