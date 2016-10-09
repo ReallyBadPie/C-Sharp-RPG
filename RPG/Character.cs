@@ -17,191 +17,110 @@ namespace RPG
         /* DEFAULT CONSTRUCTOR */
         public Character()
         {
-            this.Name = "";
-            this.Level = 1;
-            this.Health = 100;
-            this.MaxHealth = 100;
-            this.Strength = 1;
-            this.Defence = 1;
-            this.Speed = 5;
+            Name = "";
+            Level = 1;
+            Health = 100;
+            MaxHealth = 100;
+            Strength = 1;
+            Defence = 1;
+            Speed = 5;
 
         }
 
         /* ALTERNATE CONSTRUCTOR */
         public Character(string name, int level, int health, int maxHealth, int strength, int defence, int speed)
         {
-            this.Name = name;
-            this.Level = level;
-            this.Health = health;
-            this.MaxHealth = maxHealth;
-            this.Strength = strength;
-            this.Defence = defence;
-            this.Speed = speed;
+            Name = name;
+            Level = level;
+            Health = health;
+            MaxHealth = maxHealth;
+            Strength = strength;
+            Defence = defence;
+            Speed = speed;
         }
 
         // Property to handle name
         public string Name
         {
-            get { return name;  }
+            get { return this.name;  }
 
             set
             {
-                name = value;
+                this.name = value;
             }
         }
 
         // Property to handle level
         public int Level
         {
-            get { return level; }
+            get { return this.level; }
 
             set
             {
                 if (value < 0) value = 0;
-                level = value;
+                this.level = value;
             }
         }
 
         // Property to handle health
         public int Health
         {
-            get { return health;  }
+            get { return this.health;  }
 
             set
             {
                 if (value < 1) value = 1;
-                if (value > MaxHealth) value = MaxHealth;
-                health = value;
+                if (value > this.maxHealth) value = this.maxHealth;
+                this.health = value;
             }
         }
 
         // Property to handle maxHealth
         public int MaxHealth
         {
-            get { return maxHealth;  }
+            get { return this.maxHealth;  }
 
             set
             {
-                if (value < Health) value = health;
-                MaxHealth = value;
+                if (value < this.Health) value = this.health;
+                this.maxHealth = value;
             }
         }
 
         // Property to handle strength
         public int Strength
         {
-            get { return strength; }
+            get { return this.strength; }
 
             set
             {
                 if (value < 0) value = 0;
-                strength = value;
+                this.strength = value;
             }
         }
 
         // Property to handle defence
         public int Defence
         {
-            get { return defence;  }
+            get { return this.defence;  }
 
             set
             {
                 if (value < 0) value = 0;
-                defence = value;
+                this.defence = value;
             }
         }
 
         // Property to handle speed
         public int Speed
         {
-            get { return speed; }
+            get { return this.speed; }
 
             set
             {
                 if (value < 0) value = 0;
-                speed = value;
+                this.speed = value;
             }
-        }
-
-        /* Getters */
-        public string getName()
-        {
-            return this.name;
-        }
-
-        public int getLevel()
-        {
-            return this.level;
-        }
-
-        public int getHealth()
-        {
-            return this.health;
-        }
-
-        public int getMaxHealth()
-        {
-            return this.maxHealth;
-        }
-
-        public int getStrength()
-        {
-            return this.strength;
-        }
-
-        public int getDefence()
-        {
-            return this.defence;
-        }
-
-        public int getSpeed()
-        {
-            return this.speed;
-        }
-
-        /* Setters */
-        public void setName(string name)
-        {
-            this.name = name;
-        }
-
-        public void setHealth(int health)
-        {
-            this.health = health;
-
-            if (health <= 0)
-            {
-                //run death function
-            }
-            if (health > maxHealth)
-            {
-                health = maxHealth;
-            }
-        }
-
-        public void setMaxHealth(int maxHealth)
-        {
-            this.maxHealth = maxHealth;
-        }
-
-        public void setLevel(int level)
-        {
-            this.level = level;
-        }
-
-        public void setStrength(int strength)
-        {
-            this.strength = strength;
-        }
-
-        public void setDefence(int defence)
-        {
-            this.defence = defence;
-        }
-        
-        public void setSpeed(int speed)
-        {
-            this.speed = speed;
         }
     }
 
@@ -214,108 +133,67 @@ namespace RPG
 
         public Player() : base()
         {
-            this.Experience = 0;
-            this.MaxExperience = 100;
-            this.money = 0;
-            this.killed = 0;
+            Experience = 0;
+            MaxExperience = 100;
+            Money = 0;
+            Killed = 0;
         }
 
         public Player(string name, int level, int health, int maxHealth, int strength, int defence, int experience, int maxExperience, int money, int speed) 
             : base(name, level, health, maxHealth, strength, defence, speed)
         {
-            this.Experience = experience;
-            this.MaxExperience = maxExperience;
-            this.Money = money;
-            this.killed = killed;
+            Experience = experience;
+            MaxExperience = maxExperience;
+            Money = money;
+            Killed = killed;
         }
 
         // Property for handling experience
         public int Experience
         {
-            get { return experience; }
+            get { return this.experience; }
 
             set
             {
                 if (value < 0) value = 0;
-                experience = value;
+                this.experience = value;
             }
         }
 
         // Property for handling maxExperience
         public int MaxExperience
         {
-            get { return maxExperience;  }
+            get { return this.maxExperience;  }
 
             set
             {
                 if (value < 0) value = 0;
-                maxExperience = value;
+                this.maxExperience = value;
             }
         }
 
         // Property for handling $$$$$$
         public int Money
         {
-            get { return money;  }
+            get { return this.money;  }
 
             set
             {
                 if (value < 0) value = 0;
-                money = value;
+                this.money = value;
             }
         }
 
         // Property for handling monsterKills
         public int Killed
         {
-            get { return killed; }
+            get { return this.killed; }
 
             set
             {
                 if (value < 0) value = 0;
-                killed = value;
+                this.killed = value;
             }
-        }
-        //Getters
-        public int getExperience()
-        {
-            return this.experience;
-        }
-
-        public int getMaxExp ()
-        {
-            return this.maxExperience;
-        }
-
-        public int getMoney()
-        {
-            return this.money;
-        }
-
-        public int getKilled()
-        {
-            return this.killed;
-        }
-
-        //Setters
-        public void setExperience(int experience)
-        {
-            this.experience = experience;
-        }
-
-        public void setMaxExp (int maxExp)
-        {
-            this.maxExperience = maxExp;
-        }
-
-        public void setMoney(int money)
-        {
-            this.money = money;
-        }
-
-        public void setKilled(int killed)
-        {
-            this.killed = killed;
         }
     }
 
@@ -326,61 +204,40 @@ namespace RPG
 
         public Monster() : base()
         {
-            this.moneyDrop = 10;
-            this.experienceDrop = 10;
+            MoneyDrop = 10;
+            ExperienceDrop = 10;
         }
 
-        public Monster(string name, int level, int health, int maxHealth, int strength, int defence, int speed, int moneyDrop, int experienceDrop) : base(name, level, health,maxHealth, strength, defence, speed)
+        public Monster(string name, int level, int health, int maxHealth, int strength, int defence, int speed, int moneyDrop, int experienceDrop) 
+            : base(name, level, health,maxHealth, strength, defence, speed)
         {
-            this.moneyDrop = moneyDrop;
-            this.experienceDrop = experienceDrop;
+            MoneyDrop = moneyDrop;
+            ExperienceDrop = experienceDrop;
         }
 
 
         // Property for handling moneyDrop
         public int MoneyDrop
         {
-            get { return moneyDrop;  }
+            get { return this.moneyDrop;  }
 
             set
             {
                 if (value < 0) value = 0;
-                moneyDrop = value;
+                this.moneyDrop = value;
             }
         }
 
         // Property for handling experienceDrop
         public int ExperienceDrop
         {
-            get { return experienceDrop; }
+            get { return this.experienceDrop; }
 
             set
             {
                 if (value < 0) value = 0;
-                experienceDrop = value;
+                this.experienceDrop = value;
             }
-        }
-
-        //Getters
-        public int getMoneyDrop()
-        {
-            return this.moneyDrop;
-        }
-
-        public int getExperienceDrop()
-        {
-            return this.experienceDrop;
-        }
-
-        //Setters
-        public void setMoneyDrop(int moneyDrop)
-        {
-            this.moneyDrop = moneyDrop;
-        }
-
-        public void setExperienceDrop(int experienceDrop)
-        {
-            this.experienceDrop = experienceDrop;
         }
     }
 }

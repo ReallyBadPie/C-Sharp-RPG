@@ -134,7 +134,7 @@ namespace RPG
             foreach(Weapon weapon in weapons)
             {
                 // Only show weapon if the player can use it
-                if (player.getLevel() >= weapon.LevelRequirement)
+                if (player.Level >= weapon.LevelRequirement)
                 {
                     Console.WriteLine(weapon.Name);
                     Console.WriteLine("ID: " + ii);
@@ -173,14 +173,14 @@ namespace RPG
             else
             {
                 Weapon weapon = weaponArr[id];
-                if (weapon.LevelRequirement > player.getLevel())
+                if (weapon.LevelRequirement > player.Level)
                 {
                     Console.WriteLine("Invalid weapon ID");
                 }
                 else
                 {
                     // Check player isn't broke ass
-                    if (weapon.Price > player.getMoney())
+                    if (weapon.Price > player.Money)
                     {
                         Console.WriteLine("Not enough money to buy this weapon");
                     }
