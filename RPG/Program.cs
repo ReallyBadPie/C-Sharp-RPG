@@ -28,7 +28,7 @@ namespace RPG
             int levelMultiplier = rnd.Next(1, 6);
 
             string baseName = "";
-            int baseLevel = player.getLevel() + levelMultiplier;
+            int baseLevel = player.Level + levelMultiplier;
             int baseHealth = baseLevel * levelMultiplier;
             int baseMoneyDrop = 10;
             int baseExpDrop = 10;
