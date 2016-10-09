@@ -172,9 +172,6 @@ namespace RPG
             int playerDmg;
             int monsterDmg;
 
-            Console.WriteLine(currentPlayer.Health);
-            Console.WriteLine(fightingMonster.Health);
-
             bool playerTurn = currentPlayer.Speed > fightingMonster.Speed;
 
             while (currentPlayer.Health > 0 && fightingMonster.Health > 0)
