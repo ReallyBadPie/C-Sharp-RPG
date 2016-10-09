@@ -13,10 +13,10 @@ namespace RPG
         {
             bool gameRunning = true;
 
-            currentPlayer = new Player();
+            currentPlayer = new Player("Test", 1, 100, 100, 20, 1, 0, 10, 10, 5);
 
             // Main game loop
-            while(gameRunning)
+            while (gameRunning)
             {
                 gameRunning = selectMenuOptions();
             }
@@ -182,8 +182,8 @@ namespace RPG
                 if (playerTurn && currentPlayer.Health > 0)
                 {
                     // Players turn to attack
-                    playerDmg = rand.Next(0, (currentPlayer.Strength * 2));
-                    Console.WriteLine("You attack dealing" + playerDmg + " damage to " + fightingMonster.Name);
+                    playerDmg = rand.Next(1, (currentPlayer.Strength * 2));
+                    Console.WriteLine("You attack dealing " + playerDmg + " damage to " + fightingMonster.Name);
 
                     // Deal damage to monster
                     fightingMonster.Health -= playerDmg;
@@ -194,7 +194,7 @@ namespace RPG
                 else
                 {
                     // Monsters turn to attack
-                    monsterDmg = rand.Next(0, (fightingMonster.Strength * 2));
+                    monsterDmg = rand.Next(1, (fightingMonster.Strength * 2));
                     Console.WriteLine(fightingMonster.Name + " attacked dealing " + monsterDmg + " damge!");
 
                     // Deal damage to player
@@ -203,7 +203,7 @@ namespace RPG
 
                     playerTurn = true;
                 }
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
             }
 
             if (currentPlayer.Health > 0)

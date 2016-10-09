@@ -17,7 +17,7 @@ namespace RPG
         /* DEFAULT CONSTRUCTOR */
         public Character()
         {
-            Name = "";
+            Name = "DEFAULT";
             Level = 1;
             Health = 100;
             MaxHealth = 100;
@@ -32,8 +32,8 @@ namespace RPG
         {
             Name = name;
             Level = level;
-            Health = health;
             MaxHealth = maxHealth;
+            Health = health;
             Strength = strength;
             Defence = defence;
             Speed = speed;
@@ -69,7 +69,7 @@ namespace RPG
 
             set
             {
-                if (value < 1) value = 1;
+                if (value < 0) value = 0;
                 if (value > this.maxHealth) value = this.maxHealth;
                 this.health = value;
             }
@@ -82,7 +82,7 @@ namespace RPG
 
             set
             {
-                if (value < this.Health) value = this.health;
+                if (value < 0) value = 0;
                 this.maxHealth = value;
             }
         }
