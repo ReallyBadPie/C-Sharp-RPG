@@ -58,13 +58,17 @@
         private int defenceBonus;
         private int healthBonus;
 
+        private int levelRequirement;
+
         private string type;
 
-        public Weapon(int strengthBonus, int defenceBonus, int healthBonus)
+        public Weapon(string name, int price, int strengthBonus, int defenceBonus, int healthBonus, int levelRequirement)
+            :base(price, name)
         {
             this.StrengthBonus = strengthBonus;
             this.DefenceBonus = DefenceBonus;
             this.HealthBonus = healthBonus;
+            this.LevelRequirement = levelRequirement;
         }
 
         // Property for managing strengthBonus
@@ -103,6 +107,17 @@
                 healthBonus = value;
             }
         }
+
+        // Property for managing level requirements
+        public int LevelRequirement
+        {
+            get { return levelRequirement; }
+            set {
+                if (value < 0) value = 0;
+                levelRequirement = value;
+            }
+        }
+
     }
 
 }
