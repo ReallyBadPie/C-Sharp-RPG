@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace RPG
 {
     class Program
     {
-        private static Player player;
+        private static Player currentPlayer;
         private List<Item> items;
 
         static void Main(string[] args)
         {
             bool gameRunning = true;
-            player = new Player();
-            Console.WriteLine(player.getLevel());
+
+            currentPlayer = new Player();
 
             // Main game loop
             while(gameRunning)
@@ -28,12 +29,15 @@ namespace RPG
             int levelMultiplier = rnd.Next(1, 6);
 
             string baseName = "";
-            int baseLevel = player.Level + levelMultiplier;
+
+            int baseLevel = currentPlayer.Level + levelMultiplier;
+
             int baseHealth = baseLevel * levelMultiplier;
             int baseMoneyDrop = 10;
             int baseExpDrop = 10;
             int baseStr = baseLevel;
             int baseDef = baseLevel;
+            int baseSpeed = 0;
 
             int monsterChoice = rnd.Next(1, 5);
             switch (monsterChoice)
@@ -45,6 +49,7 @@ namespace RPG
                     baseDef = baseLevel / 2;
                     baseMoneyDrop *= 3;
                     baseExpDrop *= 3;
+                    baseSpeed = 2 + baseLevel;
                     break;
                 case 2:
                     baseName = "Wizard";
@@ -53,19 +58,22 @@ namespace RPG
                     baseDef = baseLevel / 3;
                     baseMoneyDrop *= 2;
                     baseExpDrop *= 4;
+                    baseSpeed = 10 + baseLevel;
                     break;
                 case 3:
                     baseName = "Bandit";
                     baseHealth += 100;
                     baseMoneyDrop *= 2;
                     baseExpDrop *= 2;
+                    baseSpeed = 5 + baseLevel;
                     break;
                 case 4:
                     baseName = "Cactus";
                     baseHealth += 420;
-                    baseStr = 3;
+                    baseStr = 1;
                     baseDef = baseLevel * 5;
                     baseExpDrop *= 6;
+                    baseSpeed = 1;
                     break;
             }
 
@@ -76,6 +84,7 @@ namespace RPG
                 baseHealth,
                 baseStr,
                 baseDef,
+                baseSpeed,
                 baseMoneyDrop,
                 baseExpDrop
             );
@@ -113,11 +122,11 @@ namespace RPG
                     break;
                 case 2:
                     Console.WriteLine("Entering fight...");
-                    //TODO: Create fight options
+                    fighting();
                     break;
                 case 3:
                     Console.WriteLine("Enter Shop...");
-                    Shop shop = new Shop(player);
+                    Shop shop = new Shop(currentPlayer);
                     shop.openShop();
                     break;
                 case 4:
@@ -149,6 +158,79 @@ namespace RPG
 
             Console.WriteLine("");
             Console.Write("Enter option: ");
+        }
+
+        private static void fighting()
+        {
+            Monster fightingMonster = generateMonster();
+            Console.WriteLine(fightingMonster.getName() + " appeared !");
+            int playerDmg = currentPlayer.getStrength();
+            int monsterDmg = fightingMonster.getStrength();
+
+            while (currentPlayer.getHealth() > 0 && fightingMonster.getHealth() > 0)
+            {
+                if (currentPlayer.getSpeed() > fightingMonster.getSpeed())
+                {
+                    Console.WriteLine("You attacked !");
+                    fightingMonster.setHealth(fightingMonster.getHealth() - playerDmg);
+                    Console.WriteLine("Monster has " + fightingMonster.getHealth() + " HP!");
+                    Console.WriteLine();
+                    if (fightingMonster.getHealth() > 1)
+                    {
+                        Console.WriteLine("Monster attacked !");
+                        currentPlayer.setHealth(currentPlayer.getHealth() - monsterDmg);
+                        Console.WriteLine("You have " + currentPlayer.getHealth() + " HP");
+                        Console.WriteLine();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Monster attacked !");
+                    currentPlayer.setHealth(currentPlayer.getHealth() - monsterDmg);
+                    Console.WriteLine("You have " + currentPlayer.getHealth() + " HP");
+                    Console.WriteLine();
+                    if (currentPlayer.getHealth() > 1)
+                    {
+                        Console.WriteLine("You attacked !");
+                        fightingMonster.setHealth(fightingMonster.getHealth() - playerDmg);
+                        Console.WriteLine("Monster has " + fightingMonster.getHealth() + " HP!");
+                        Console.WriteLine();
+                    }
+                }
+                Thread.Sleep(500);
+            }
+            if (currentPlayer.getHealth() > 0)
+            {
+                Console.WriteLine("You defeated the monster and found " + fightingMonster.getMoneyDrop() + " Gold and gained " + fightingMonster.getExperienceDrop() + " EXP");
+                currentPlayer.setMoney(currentPlayer.getMoney() + fightingMonster.getMoneyDrop());
+                currentPlayer.setExperience(currentPlayer.getExperience() + fightingMonster.getExperienceDrop());
+                if (currentPlayer.getExperience() >= currentPlayer.getMaxExp())
+                {
+                    levelUp();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Monster has killed you.");
+                currentPlayer.setExperience(0);
+            }
+
+            currentPlayer.setHealth(currentPlayer.getMaxHealth());
+          
+        
+        }
+
+        private static void levelUp()
+        {
+            Console.WriteLine("LEVEL UP !");
+            currentPlayer.setLevel(currentPlayer.getLevel() + 1);
+            currentPlayer.setMaxExp(currentPlayer.getMaxExp() * 2);
+            currentPlayer.setExperience(0);
+            currentPlayer.setStrength(currentPlayer.getStrength() + 2);
+            currentPlayer.setDefence(currentPlayer.getDefence() + 2);
+            currentPlayer.setSpeed(currentPlayer.getSpeed() + 1);
+            currentPlayer.setMaxHealth(currentPlayer.getMaxExp() + 10);
+            currentPlayer.setHealth(currentPlayer.getMaxHealth());
         }
         
     }

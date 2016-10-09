@@ -12,8 +12,8 @@ namespace RPG
         protected int maxHealth;
         protected int strength;
         protected int defence;
+        protected int speed;
         
-
         /* DEFAULT CONSTRUCTOR */
         public Character()
         {
@@ -23,10 +23,12 @@ namespace RPG
             this.MaxHealth = 100;
             this.Strength = 1;
             this.Defence = 1;
+            this.Speed = 5;
+
         }
 
         /* ALTERNATE CONSTRUCTOR */
-        public Character(string name, int level, int health, int maxHealth, int strength, int defence)
+        public Character(string name, int level, int health, int maxHealth, int strength, int defence, int speed)
         {
             this.Name = name;
             this.Level = level;
@@ -34,6 +36,7 @@ namespace RPG
             this.MaxHealth = maxHealth;
             this.Strength = strength;
             this.Defence = defence;
+            this.Speed = speed;
         }
 
         // Property to handle name
@@ -108,6 +111,18 @@ namespace RPG
             }
         }
 
+        // Property to handle speed
+        public int Speed
+        {
+            get { return speed; }
+
+            set
+            {
+                if (value < 0) value = 0;
+                speed = value;
+            }
+        }
+
         /* Getters */
         public string getName()
         {
@@ -137,6 +152,11 @@ namespace RPG
         public int getDefence()
         {
             return this.defence;
+        }
+
+        public int getSpeed()
+        {
+            return this.speed;
         }
 
         /* Setters */
@@ -178,6 +198,11 @@ namespace RPG
         {
             this.defence = defence;
         }
+        
+        public void setSpeed(int speed)
+        {
+            this.speed = speed;
+        }
     }
 
     public class Player : Character
@@ -185,20 +210,23 @@ namespace RPG
         private int experience;
         private int maxExperience;
         private int money;
+        private int killed;
 
         public Player() : base()
         {
             this.Experience = 0;
             this.MaxExperience = 100;
             this.money = 0;
+            this.killed = 0;
         }
 
-        public Player(string name, int level, int health, int maxHealth, int strength, int defence, int experience, int maxExperience, int money) 
-            : base(name, level, health, maxHealth, strength, defence)
+        public Player(string name, int level, int health, int maxHealth, int strength, int defence, int experience, int maxExperience, int money, int speed) 
+            : base(name, level, health, maxHealth, strength, defence, speed)
         {
-            this.experience = experience;
+            this.Experience = experience;
             this.MaxExperience = maxExperience;
-            this.money = money;
+            this.Money = money;
+            this.killed = killed;
         }
 
         // Property for handling experience
@@ -237,15 +265,36 @@ namespace RPG
             }
         }
 
+        // Property for handling monsterKills
+        public int Killed
+        {
+            get { return killed; }
+
+            set
+            {
+                if (value < 0) value = 0;
+                killed = value;
+            }
+        }
         //Getters
         public int getExperience()
         {
             return this.experience;
         }
 
+        public int getMaxExp ()
+        {
+            return this.maxExperience;
+        }
+
         public int getMoney()
         {
             return this.money;
+        }
+
+        public int getKilled()
+        {
+            return this.killed;
         }
 
         //Setters
@@ -254,9 +303,19 @@ namespace RPG
             this.experience = experience;
         }
 
+        public void setMaxExp (int maxExp)
+        {
+            this.maxExperience = maxExp;
+        }
+
         public void setMoney(int money)
         {
             this.money = money;
+        }
+
+        public void setKilled(int killed)
+        {
+            this.killed = killed;
         }
     }
 
@@ -271,7 +330,7 @@ namespace RPG
             this.experienceDrop = 10;
         }
 
-        public Monster(string name, int level, int health, int maxHealth, int strength, int defence, int moneyDrop, int experienceDrop) : base(name, level, health,maxHealth, strength, defence)
+        public Monster(string name, int level, int health, int maxHealth, int strength, int defence, int speed, int moneyDrop, int experienceDrop) : base(name, level, health,maxHealth, strength, defence, speed)
         {
             this.moneyDrop = moneyDrop;
             this.experienceDrop = experienceDrop;
