@@ -116,7 +116,7 @@ namespace RPG
                     break;
                 case 1:
                     Console.WriteLine("Showing player stats...");
-                    //TODO: show player stats
+                    playerStats();
                     break;
                 case 2:
                     Console.WriteLine("Entering fight...");
@@ -202,6 +202,7 @@ namespace RPG
                 Console.WriteLine("You defeated the monster and found " + fightingMonster.getMoneyDrop() + " Gold and gained " + fightingMonster.getExperienceDrop() + " EXP");
                 currentPlayer.setMoney(currentPlayer.getMoney() + fightingMonster.getMoneyDrop());
                 currentPlayer.setExperience(currentPlayer.getExperience() + fightingMonster.getExperienceDrop());
+                currentPlayer.setKilled(currentPlayer.getKilled() + 1);
                 if (currentPlayer.getExperience() >= currentPlayer.getMaxExp())
                 {
                     levelUp();
@@ -227,8 +228,22 @@ namespace RPG
             currentPlayer.setStrength(currentPlayer.getStrength() + 2);
             currentPlayer.setDefence(currentPlayer.getDefence() + 2);
             currentPlayer.setSpeed(currentPlayer.getSpeed() + 1);
-            currentPlayer.setMaxHealth(currentPlayer.getMaxExp() + 10);
+            currentPlayer.setMaxHealth(currentPlayer.getMaxHealth() + 10);
             currentPlayer.setHealth(currentPlayer.getMaxHealth());
+        }
+
+        private static void playerStats()
+        {
+            Console.WriteLine("Name : " + currentPlayer.getName());
+            Console.WriteLine("Level : " + currentPlayer.getLevel());
+            Console.WriteLine("HP : " + currentPlayer.getHealth());
+            Console.WriteLine("Strength : " + currentPlayer.getStrength());
+            Console.WriteLine("Defence : " + currentPlayer.getDefence());
+            Console.WriteLine("Speed : " + currentPlayer.getSpeed());
+            Console.WriteLine("Experience : " + currentPlayer.getExperience() + "/" + currentPlayer.getMaxExp());
+            Console.WriteLine("Money : " + currentPlayer.getMoney());
+            Console.WriteLine("Monsters killed : " + currentPlayer.getKilled());
+
         }
         
     }
