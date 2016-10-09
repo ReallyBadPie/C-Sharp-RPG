@@ -12,7 +12,9 @@ namespace RPG
         static void Main(string[] args)
         {
             bool gameRunning = true;
+
             currentPlayer = new Player();
+
             // Main game loop
             while(gameRunning)
             {
@@ -121,8 +123,9 @@ namespace RPG
                     fighting();
                     break;
                 case 3:
-                    Console.WriteLine("Enter quest mode...");
-                    //TODO: Create questing options
+                    Console.WriteLine("Enter Shop...");
+                    Shop shop = new Shop(currentPlayer);
+                    shop.openShop();
                     break;
                 case 4:
                     Console.WriteLine("Exiting Game...");
@@ -148,7 +151,7 @@ namespace RPG
             // All available current options
             Console.WriteLine("[1] Show Player Stats");
             Console.WriteLine("[2] Fight");
-            Console.WriteLine("[3] Quest");
+            Console.WriteLine("[3] Shop");
             Console.WriteLine("[4] Exit");
 
             Console.WriteLine("");
