@@ -12,6 +12,7 @@ namespace RPG
         protected int maxHealth;
         protected int strength;
         protected int defence;
+        protected int speed;
         
 
         /* DEFAULT CONSTRUCTOR */
@@ -21,12 +22,13 @@ namespace RPG
             this.level = 1;
             this.health = 100;
             this.maxHealth = 100;
-            this.strength = 1;
-            this.defence = 1;
+            this.strength = 50;
+            this.defence = 5;
+            this.speed = 5;
         }
 
         /* ALTERNATE CONSTRUCTOR */
-        public Character(string name, int level, int health, int maxHealth, int strength, int defence)
+        public Character(string name, int level, int health, int maxHealth, int strength, int defence, int speed)
         {
             this.name = name;
             this.level = level;
@@ -34,6 +36,7 @@ namespace RPG
             this.maxHealth = maxHealth;
             this.strength = strength;
             this.defence = defence;
+            this.speed = speed;
         }
 
         /* Getters */
@@ -65,6 +68,11 @@ namespace RPG
         public int getDefence()
         {
             return this.defence;
+        }
+
+        public int getSpeed()
+        {
+            return this.speed;
         }
 
         /* Setters */
@@ -106,6 +114,11 @@ namespace RPG
         {
             this.defence = defence;
         }
+        
+        public void setSpeed(int speed)
+        {
+            this.speed = speed;
+        }
     }
 
     public class Player : Character
@@ -113,20 +126,23 @@ namespace RPG
         private int experience;
         private int maxExp;
         private int money;
+        private int killed;
 
         public Player() : base()
         {
             this.experience = 0;
             this.maxExp = 100;
             this.money = 0;
+            this.killed = 0;
         }
 
-        public Player(string name, int level, int health, int maxHealth, int strength, int defence, int experience, int maxExp, int money) : base(name, level, health, maxHealth, strength, defence)
+        public Player(string name, int level, int health, int maxHealth, int strength, int defence,int speed, int experience, int maxExp, int money, int killed) : base(name, level, health, maxHealth, strength, defence, speed)
         {
 
             this.experience = experience;
             this.maxExp = maxExp;
             this.money = money;
+            this.killed = killed;
         }
 
         //Getters
@@ -135,9 +151,19 @@ namespace RPG
             return this.experience;
         }
 
+        public int getMaxExp ()
+        {
+            return this.maxExp;
+        }
+
         public int getMoney()
         {
             return this.money;
+        }
+
+        public int getKilled()
+        {
+            return this.killed;
         }
 
         //Setters
@@ -146,9 +172,19 @@ namespace RPG
             this.experience = experience;
         }
 
+        public void setMaxExp (int maxExp)
+        {
+            this.maxExp = maxExp;
+        }
+
         public void setMoney(int money)
         {
             this.money = money;
+        }
+
+        public void setKilled(int killed)
+        {
+            this.killed = killed;
         }
     }
 
@@ -163,7 +199,7 @@ namespace RPG
             this.experienceDrop = 10;
         }
 
-        public Monster(string name, int level, int health, int maxHealth, int strength, int defence, int moneyDrop, int experienceDrop) : base(name, level, health,maxHealth, strength, defence)
+        public Monster(string name, int level, int health, int maxHealth, int strength, int defence, int speed, int moneyDrop, int experienceDrop) : base(name, level, health,maxHealth, strength, defence, speed)
         {
             this.moneyDrop = moneyDrop;
             this.experienceDrop = experienceDrop;
