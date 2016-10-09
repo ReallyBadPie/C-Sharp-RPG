@@ -13,10 +13,10 @@ namespace RPG
         {
             bool gameRunning = true;
 
-            currentPlayer = new Player();
+            currentPlayer = new Player("Test", 1, 100, 100, 20, 1, 0, 10, 10, 5);
 
             // Main game loop
-            while(gameRunning)
+            while (gameRunning)
             {
                 gameRunning = selectMenuOptions();
             }
@@ -29,7 +29,9 @@ namespace RPG
             int levelMultiplier = rnd.Next(1, 6);
 
             string baseName = "";
-            int baseLevel = currentPlayer.getLevel() + levelMultiplier;
+
+            // Create base stats for monster
+            int baseLevel = currentPlayer.Level + levelMultiplier;
             int baseHealth = baseLevel * levelMultiplier;
             int baseMoneyDrop = 10;
             int baseExpDrop = 10;
@@ -75,6 +77,7 @@ namespace RPG
                     break;
             }
 
+            // Create monster
             Monster monster = new Monster(
                 baseName,
                 baseLevel,
@@ -116,7 +119,7 @@ namespace RPG
                     break;
                 case 1:
                     Console.WriteLine("Showing player stats...");
-                    playerStats();
+                    //TODO: show player stats
                     break;
                 case 2:
                     Console.WriteLine("Entering fight...");
@@ -160,61 +163,66 @@ namespace RPG
 
         private static void fighting()
         {
-            Monster fightingMonster = generateMonster();
-            Console.WriteLine(fightingMonster.getName() + " appeared !");
-            int playerDmg = currentPlayer.getStrength();
-            int monsterDmg = fightingMonster.getStrength();
+            Random rand = new Random();
 
-            while (currentPlayer.getHealth() > 0 && fightingMonster.getHealth() > 0)
+            // Create the current monster
+            Monster fightingMonster = generateMonster();
+            Console.WriteLine(fightingMonster.Name + " appeared!");
+
+            int playerDmg;
+            int monsterDmg;
+
+            Console.WriteLine(currentPlayer.Health);
+            Console.WriteLine(fightingMonster.Health);
+
+            bool playerTurn = currentPlayer.Speed > fightingMonster.Speed;
+
+            while (currentPlayer.Health > 0 && fightingMonster.Health > 0)
             {
-                if (currentPlayer.getSpeed() > fightingMonster.getSpeed())
+                if (playerTurn && currentPlayer.Health > 0)
                 {
-                    Console.WriteLine("You attacked !");
-                    fightingMonster.setHealth(fightingMonster.getHealth() - playerDmg);
-                    Console.WriteLine("Monster has " + fightingMonster.getHealth() + " HP!");
-                    Console.WriteLine();
-                    if (fightingMonster.getHealth() > 1)
-                    {
-                        Console.WriteLine("Monster attacked !");
-                        currentPlayer.setHealth(currentPlayer.getHealth() - monsterDmg);
-                        Console.WriteLine("You have " + currentPlayer.getHealth() + " HP");
-                        Console.WriteLine();
-                    }
+                    // Players turn to attack
+                    playerDmg = rand.Next(1, (currentPlayer.Strength * 2));
+                    Console.WriteLine("You attack dealing " + playerDmg + " damage to " + fightingMonster.Name);
+
+                    // Deal damage to monster
+                    fightingMonster.Health -= playerDmg;
+                    Console.WriteLine(fightingMonster.Name + " is now on " + fightingMonster.Health + " HP\n");
+
+                    playerTurn = false;
                 }
                 else
                 {
-                    Console.WriteLine("Monster attacked !");
-                    currentPlayer.setHealth(currentPlayer.getHealth() - monsterDmg);
-                    Console.WriteLine("You have " + currentPlayer.getHealth() + " HP");
-                    Console.WriteLine();
-                    if (currentPlayer.getHealth() > 1)
-                    {
-                        Console.WriteLine("You attacked !");
-                        fightingMonster.setHealth(fightingMonster.getHealth() - playerDmg);
-                        Console.WriteLine("Monster has " + fightingMonster.getHealth() + " HP!");
-                        Console.WriteLine();
-                    }
+                    // Monsters turn to attack
+                    monsterDmg = rand.Next(1, (fightingMonster.Strength * 2));
+                    Console.WriteLine(fightingMonster.Name + " attacked dealing " + monsterDmg + " damge!");
+
+                    // Deal damage to player
+                    currentPlayer.Health -= monsterDmg;
+                    Console.WriteLine("You are now on " + currentPlayer.Health + " HP\n");
+
+                    playerTurn = true;
                 }
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
             }
-            if (currentPlayer.getHealth() > 0)
+
+            if (currentPlayer.Health > 0)
             {
-                Console.WriteLine("You defeated the monster and found " + fightingMonster.getMoneyDrop() + " Gold and gained " + fightingMonster.getExperienceDrop() + " EXP");
-                currentPlayer.setMoney(currentPlayer.getMoney() + fightingMonster.getMoneyDrop());
-                currentPlayer.setExperience(currentPlayer.getExperience() + fightingMonster.getExperienceDrop());
-                currentPlayer.setKilled(currentPlayer.getKilled() + 1);
-                if (currentPlayer.getExperience() >= currentPlayer.getMaxExp())
+                Console.WriteLine("You defeated the monster and found " + fightingMonster.MoneyDrop + " Gold and gained " + fightingMonster.ExperienceDrop + " EXP");
+                currentPlayer.Money += fightingMonster.MoneyDrop;
+                currentPlayer.Experience += fightingMonster.ExperienceDrop;
+                if (currentPlayer.Experience >= currentPlayer.MaxExperience)
                 {
                     levelUp();
                 }
             }
             else
             {
-                Console.WriteLine("Monster has killed you.");
-                currentPlayer.setExperience(0);
+                Console.WriteLine(fightingMonster.Name + " has killed you\n");
+                currentPlayer.Experience = 0;
             }
 
-            currentPlayer.setHealth(currentPlayer.getMaxHealth());
+            currentPlayer.Health = currentPlayer.MaxHealth;
           
         
         }
@@ -222,30 +230,16 @@ namespace RPG
         private static void levelUp()
         {
             Console.WriteLine("LEVEL UP !");
-            currentPlayer.setLevel(currentPlayer.getLevel() + 1);
-            currentPlayer.setMaxExp(currentPlayer.getMaxExp() * 2);
-            currentPlayer.setExperience(0);
-            currentPlayer.setStrength(currentPlayer.getStrength() + 2);
-            currentPlayer.setDefence(currentPlayer.getDefence() + 2);
-            currentPlayer.setSpeed(currentPlayer.getSpeed() + 1);
-            currentPlayer.setMaxHealth(currentPlayer.getMaxHealth() + 10);
-            currentPlayer.setHealth(currentPlayer.getMaxHealth());
+            currentPlayer.Level += 1;
+            currentPlayer.MaxExperience *= 2;
+            currentPlayer.Experience = 0;
+            currentPlayer.Strength += 2;
+            currentPlayer.Defence += 2;
+            currentPlayer.Speed += 1;
+            currentPlayer.MaxHealth += 10; 
+            currentPlayer.Health = currentPlayer.MaxHealth;
         }
 
-        private static void playerStats()
-        {
-            Console.WriteLine("Name : " + currentPlayer.getName());
-            Console.WriteLine("Level : " + currentPlayer.getLevel());
-            Console.WriteLine("HP : " + currentPlayer.getHealth());
-            Console.WriteLine("Strength : " + currentPlayer.getStrength());
-            Console.WriteLine("Defence : " + currentPlayer.getDefence());
-            Console.WriteLine("Speed : " + currentPlayer.getSpeed());
-            Console.WriteLine("Experience : " + currentPlayer.getExperience() + "/" + currentPlayer.getMaxExp());
-            Console.WriteLine("Money : " + currentPlayer.getMoney());
-            Console.WriteLine("Monsters killed : " + currentPlayer.getKilled());
-
-        }
-        
     }
 
 
