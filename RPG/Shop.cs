@@ -144,8 +144,6 @@ namespace RPG
                     Console.WriteLine("Health Bonus: " + weapon.HealthBonus);
                     Console.WriteLine("Level: " + weapon.LevelRequirement);
                     Console.WriteLine("");
-
-                    
                 }
                 ii++;
             }

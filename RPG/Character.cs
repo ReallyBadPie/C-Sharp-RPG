@@ -17,23 +17,95 @@ namespace RPG
         /* DEFAULT CONSTRUCTOR */
         public Character()
         {
-            this.name = "";
-            this.level = 1;
-            this.health = 100;
-            this.maxHealth = 100;
-            this.strength = 1;
-            this.defence = 1;
+            this.Name = "";
+            this.Level = 1;
+            this.Health = 100;
+            this.MaxHealth = 100;
+            this.Strength = 1;
+            this.Defence = 1;
         }
 
         /* ALTERNATE CONSTRUCTOR */
         public Character(string name, int level, int health, int maxHealth, int strength, int defence)
         {
-            this.name = name;
-            this.level = level;
-            this.health = health;
-            this.maxHealth = maxHealth;
-            this.strength = strength;
-            this.defence = defence;
+            this.Name = name;
+            this.Level = level;
+            this.Health = health;
+            this.MaxHealth = maxHealth;
+            this.Strength = strength;
+            this.Defence = defence;
+        }
+
+        // Property to handle name
+        public string Name
+        {
+            get { return name;  }
+
+            set
+            {
+                name = value;
+            }
+        }
+
+        // Property to handle level
+        public int Level
+        {
+            get { return level; }
+
+            set
+            {
+                if (value < 0) value = 0;
+                level = value;
+            }
+        }
+
+        // Property to handle health
+        public int Health
+        {
+            get { return health;  }
+
+            set
+            {
+                if (value < 1) value = 1;
+                if (value > MaxHealth) value = MaxHealth;
+                health = value;
+            }
+        }
+
+        // Property to handle maxHealth
+        public int MaxHealth
+        {
+            get { return maxHealth;  }
+
+            set
+            {
+                if (value < Health) value = health;
+                MaxHealth = value;
+            }
+        }
+
+        // Property to handle strength
+        public int Strength
+        {
+            get { return strength; }
+
+            set
+            {
+                if (value < 0) value = 0;
+                strength = value;
+            }
+        }
+
+        // Property to handle defence
+        public int Defence
+        {
+            get { return defence;  }
+
+            set
+            {
+                if (value < 0) value = 0;
+                defence = value;
+            }
         }
 
         /* Getters */
@@ -111,22 +183,58 @@ namespace RPG
     public class Player : Character
     {
         private int experience;
-        private int maxExp;
+        private int maxExperience;
         private int money;
 
         public Player() : base()
         {
-            this.experience = 0;
-            this.maxExp = 100;
+            this.Experience = 0;
+            this.MaxExperience = 100;
             this.money = 0;
         }
 
-        public Player(string name, int level, int health, int maxHealth, int strength, int defence, int experience, int maxExp, int money) : base(name, level, health, maxHealth, strength, defence)
+        public Player(string name, int level, int health, int maxHealth, int strength, int defence, int experience, int maxExperience, int money) 
+            : base(name, level, health, maxHealth, strength, defence)
         {
-
             this.experience = experience;
-            this.maxExp = maxExp;
+            this.MaxExperience = maxExperience;
             this.money = money;
+        }
+
+        // Property for handling experience
+        public int Experience
+        {
+            get { return experience; }
+
+            set
+            {
+                if (value < 0) value = 0;
+                experience = value;
+            }
+        }
+
+        // Property for handling maxExperience
+        public int MaxExperience
+        {
+            get { return maxExperience;  }
+
+            set
+            {
+                if (value < 0) value = 0;
+                maxExperience = value;
+            }
+        }
+
+        // Property for handling $$$$$$
+        public int Money
+        {
+            get { return money;  }
+
+            set
+            {
+                if (value < 0) value = 0;
+                money = value;
+            }
         }
 
         //Getters
@@ -167,6 +275,31 @@ namespace RPG
         {
             this.moneyDrop = moneyDrop;
             this.experienceDrop = experienceDrop;
+        }
+
+
+        // Property for handling moneyDrop
+        public int MoneyDrop
+        {
+            get { return moneyDrop;  }
+
+            set
+            {
+                if (value < 0) value = 0;
+                moneyDrop = value;
+            }
+        }
+
+        // Property for handling experienceDrop
+        public int ExperienceDrop
+        {
+            get { return experienceDrop; }
+
+            set
+            {
+                if (value < 0) value = 0;
+                experienceDrop = value;
+            }
         }
 
         //Getters
